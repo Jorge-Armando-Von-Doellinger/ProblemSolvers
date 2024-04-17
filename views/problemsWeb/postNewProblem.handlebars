@@ -1,0 +1,25 @@
+<h2 class="text-center"> Publique seu problema: </h2>
+<div class="card">
+    <div class="card-body mt-2">
+        <form action="" method="post">
+            <label for="title"> Titulo: </label>
+            <input type="text" name="titulo" class="form-control">
+
+            <label for="description"> Descrição: </label>
+            <input type="text" name="description" class="form-control"><br/>
+
+            <label for="resolved"> Status: </label><br/>
+            <select name="resolved" id="resolved" class="form-control-sm text-center ">
+                <option value="resolvedTrue"> Resolvido </option>
+                <option value="resolvedFalse"> Não resolvido</option>
+            </select><br/>
+
+            <label for="keyWords"> Palavras chaves: </label>
+            <input type="text" name="keyWords" class="form-control">
+            <small>OBS:Escreva suas Palavras-Chaves com <strong>VIRGULA</strong></small>
+            
+            <button type="submit" class="btn btn-success mt-2 float-end"> Enviar </button>
+        </form>
+
+    </div>
+</div>
