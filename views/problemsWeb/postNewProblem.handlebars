@@ -3,19 +3,28 @@
     <div class="card-body mt-2">
         <form action="" method="post">
             <label for="title"> Titulo: </label>
-            <input type="text" name="titulo" class="form-control">
+            <input type="text" name="title" class="form-control">
 
             <label for="description"> Descrição: </label>
             <input type="text" name="description" class="form-control"><br/>
 
-            <label for="resolved"> Status: </label><br/>
-            <select name="resolved" id="resolved" class="form-control-sm text-center ">
-                <option value="resolvedTrue"> Resolvido </option>
-                <option value="resolvedFalse"> Não resolvido</option>
+            <label for="status"> Status: </label><br/>
+            <select name="status" class="form-control-sm text-center ">
+                <option value="notResolved"> Não resolvido</option>
+                <option value="resolved"> Resolvido </option>
             </select><br/>
 
-            <label for="keyWords"> Palavras chaves: </label>
-            <input type="text" name="keyWords" class="form-control">
+            <label for="category"> Categoria: </label><br/>
+            <select name="category" class="form-control-sm text-center ">
+                {{#each categoryes}}
+                <option value="{{name}}"> {{name}} </option>
+                {{else}}
+                <option value="0"> Nenhuma categoria registrada!</option>
+                {{/each}}
+            </select><br/>
+
+            <label for="keywords"> Palavras chaves: </label>
+            <input type="text" name="keywords" class="form-control">
             <small>OBS:Escreva suas Palavras-Chaves com <strong>VIRGULA</strong></small>
             
             <button type="submit" class="btn btn-success mt-2 float-end"> Enviar </button>
