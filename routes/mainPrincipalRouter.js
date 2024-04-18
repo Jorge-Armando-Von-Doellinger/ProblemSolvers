@@ -46,11 +46,12 @@ router.post("/problems/filter", (req, res) => {
 
 router.get("/problems/:filter", (req, res) => {
     try {
-        const {category} = req.body
-        problemsModel.find({category: category}).lean()
+        const {filter} = req.params
+        
+        problemsModel.find({category: filter}).lean()
         .then((problemsFiltered) => {
-            console.log(category)
-            res.render("./problemsWeb/index", {problemsFiltered: problemsFiltered})
+            
+            res.render("./problemsWeb/index", {problemsFiltered: problemsFiltered, title: filter})
         })
         .catch((err) => {
             req.flash("error", "Erro ao procurar estes problemas")
