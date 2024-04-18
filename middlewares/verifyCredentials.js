@@ -10,7 +10,7 @@ const verifyCredentials = (req, res, next) => {
 
     const stringNull = title == '' || description == '' || keywords == '' || title == ''
     const stringSpace = titleTrimmedString.length == 0 || summaryTrimmedString.length == 0 || descriptionTrimmedString.length == 0 || keywordsTrimmedString.length == 0
-     
+    
     const StringUndefinedNull = !title || !description || !keywords || !category
     // const shortString = title.length < 4 || description.length < 10 || keywords.length < 5 || summary.length < 10
 

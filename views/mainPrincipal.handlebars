@@ -4,34 +4,40 @@
         <h1 class="text-center" style="color: orange;"> Problems Solvers</h1>
 
         <p class="text-center" style="color: cornflowerblue;"> Procure e/ou publique formas de resolver seu problema. Aqui nossa comunidade estará compartilhando ideias e possíveis soluções para te ajudar!</p>
+    <hr>
+        <article class="mt-5">
+            
+            <form action="/problems/filter" method="post">
+                <select name="categoryes" class="form-select">
+                    {{#each categoryes}}
+                    <option value="{{name}}"> {{name}} </option>
+                    {{else}}
+                    <option value="0"> Nenhuma categoria registrada! </option>
+                    {{/each}}
+                </select>
 
-        <div class="d-flex justify-content-center align-items-center mt-5" style="height: 100vh;">
-            <div class="container">
-    <!-- Conteúdo do container aqui -->
-
-
-        
+                <button type="submit" class="btn btn-info"> Filtrar problemas </button>
+            </form>
+            
             <h4> Problemas mais recentes: </h4>
                 {{#each problems}}
-                    <form action="/problems/view/{{_id}}" class="mt-4 col-md-6 mx-4" style="" method="get" style="width: 55px" class="">
-            
-                    <button class="p-4" style="height: 265px; width: 1000px">
-                        <h3 class="text-danger"> {{ title }} </h3>
-                        <hr>
-                        <small> {{summary}} </small><br/>
-                        <small> {{ status }} </small><br/>
-                        <small> {{created_at}} </small><br/>
-                    </button>
+                    <div class="col-md-6 mt-4  border p-4 w-100">
+                        <form action="/problems/view/{{_id}}" method="get">
+                            <h3 class="text-center"> {{ title }} </h3>
+                            <hr>
+                            <small> {{summary}} </small><br/>
+                            <small> {{ status }} </small><br/>
+                            <small> {{created_at}} </small><br/>
+                            <button type="submit" class="btn btn-success mt-2"> Observar problema </button>
+                        </form>
+                    </div>
 
-                    </form>
-                    {{!-- <div class="border border-dark p-4 mt-4 col-md-6 mx-4" style="width: 550px;">
-                    </div> --}}
+                    {{else}}
+                        <p> Nenhum problema registrado </p>
+                    {{/each}}
+        </article>
                     
-                {{else}}
-                    <p> Nenhum problema registrado </p>
-                {{/each}}
-            </div>
-        </div>
+
     </div>
 </div>
 <form action="/problems/post" method="get">

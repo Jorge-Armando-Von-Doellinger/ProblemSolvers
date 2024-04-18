@@ -1,0 +1,29 @@
+
+<div class="card">
+    <div class="card-body">
+        <article>
+
+            <h4> Problemas mais recentes: </h4>
+                {{#each problemsFiltered}}
+                    <div class="col-md-6 mt-4 mx-5 border p-4">
+                        <form action="/problems/view/{{_id}}" method="get">
+                            <h3 class="text-center"> {{ title }} </h3>
+                            <hr>
+                            <small> {{summary}} </small><br/>
+                            <small> {{ status }} </small><br/>
+                            <small> {{created_at}} </small><br/>
+                            <button type="submit" class="btn btn-success mt-2"> Observar problema </button>
+                        </form>
+                    </div>
+
+                    {{else}}
+                        <p> Nenhum problema registrado </p>
+                    {{/each}}
+        </article>
+                    
+
+    </div>
+</div>
+<form action="/problems/post" method="get">
+    <button type="submit" class="btn btn-success mt-2"> Poste seu problema </button>
+</form>

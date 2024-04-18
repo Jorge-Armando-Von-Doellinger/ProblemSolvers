@@ -1,0 +1,39 @@
+<div class="card mt-5">
+    <div class="card-body">
+        {{#if problem}}
+        <h2 class="text-center"> {{problem.title}} </h2>
+        <hr>
+        <p> Usuario: </p>
+            <p> Descrição: <br/> {{problem.description}} </p>
+            <small> {{problem.status}} </small><br/>
+            <hr>
+            <small> Categoria: {{problem.category}} </small><br/>
+            <small> Publicado em: {{problem.created_at}} </small><br/>
+            <hr>
+        {{else}}
+            <p> Problema não encontrado! </p>
+        {{/if}}
+        <div class="container mt-5">
+            <h3 class="mb-2"> Soluções dos usuarios: </h3>
+
+        {{#each solutions}}
+            <div class="col-md-6 mt-2 border mt-3 p-3 w-100">
+                <h4 class="px-1"> {{title}} </h4>
+                <hr>
+                <small class="mb-5"> Usuario:  </small><br/>
+                <p> Possível solução: <br/> {{description}} </p>
+                <hr>
+                <small> Publicado em: {{created_at}} </small>
+            </div>
+        {{else}}
+        <div class="col-md-6 mt-2 border p-3 w-100">
+            <p> Nenhuma solução registrada...</p>
+
+        </div>
+        {{/each}}
+            <form action="/problems/addSolution/{{problem._id}}" method="get">
+                <button type="submit" class="btn btn-success mt-4"> Adicionar sugestão </button>
+            </form>
+        </div>
+    </div>
+</div>

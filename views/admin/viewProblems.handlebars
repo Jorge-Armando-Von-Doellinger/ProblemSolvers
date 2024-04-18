@@ -1,8 +1,9 @@
+        <h1>daw</h1>
 <div class="card mt-4">
     <div class="card-body">
-        {{#each problems}}
-        <h3> {{ title }} </h3>
-        <small> {{description}} </small>
+        {{#each problem}}
+        <h3> {{this.title}} </h3>
+        <small> {{problem.description}} </small>
         <small> {{ status }} </small>
         <small> {{created_at}} </small>
         {{else}}
