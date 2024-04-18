@@ -33,8 +33,11 @@ app.engine("handlebars", handlebars.engine({defaultLayout: "main"}))
 app.set("view engine", 'handlebars')
 app.set("views", `${__dirname}/views`)
 
-const router = require("./routes/mainPrincipalRouter")
-app.use(router)
+const mainPrincipalrouter = require("./routes/mainPrincipalRouter")
+const adminRouter = require("./routes/adminRouter")
+
+app.use(mainPrincipalrouter)
+app.use("/admin", adminRouter)
 
 const PORT = process.env.SERVER_PORT
 app.listen(PORT)

@@ -1,8 +1,13 @@
 const mongoose = require("mongoose")
+const { type } = require("os")
 const Schema = mongoose.Schema
 
 const problemsModel = new Schema({
     title: {
+        type: String,
+        required: true
+    },
+    summary: {
         type: String,
         required: true
     },

@@ -1,3 +1,38 @@
 <h1 class="text-center"> Area de administrador: </h1>
+<div class="btn-grou text-center">
+    <form action="/admin/categoryes" method="get" class="d-inline">
+    <button class="btn btn-success mx-5 mt-2">Ver categorias</button>
+    </form>
 
-a
+    <form action="/admin/problems" method="get" class="d-inline">
+    <botton class="btn btn-success mx-5 mt-2"> Ver problemas</botton>
+    </form>
+</div>
+<div class="card mt-4">
+    <div class="card-body">
+        <form action="/admin/categoryes/new" class="d-inline mx-4" method="get">
+            <button type="submit" class="btn btn-success"> Criar nova categoria</button>
+        </form>
+        <form action="/admin/users/block" class="d-inline mx-4" method="get">
+            <button type="submit" class="btn btn-success"> Bloquear usuário </button>
+        </form><br/>
+
+        <div class="mt-5">
+            
+                {{#each denuncias}}
+                    <div class="mt-4">
+                        <h3> Title </h3>
+                        <p> Quantidade de denuncias: </p><br/>
+                        <small> Nome do usuário: </small><bt/>
+                        <small> Nome do acusado: </small><bt/>
+                        <small> Data da denuncia: </small><bt/>
+                    </div>
+                    <hr>
+                {{else}}
+                    <p> Nenhuma denuncia registrada </p>
+
+                {{/each}}
+        </div>
+
+    </div>
+</div>

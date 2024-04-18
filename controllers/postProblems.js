@@ -2,17 +2,18 @@ const problemModel = require("../models/problemModel")
 
 const postNewProblem = async (req, res) => {
     try {
-        const {title, description, keywords, category} = req.body
+        const {title, summary, description, keywords, category} = req.body
 
         const newProblem = new problemModel({
             title: title,
             description: description,
+            summary: summary,
             keywords: keywords,
             category: category
         })
         newProblem.save()
         .then(() => {
-            console.log("ad")
+            
             req.flash("success", "Problema registrado com sucesso")
             res.redirect("/")
         })

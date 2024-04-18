@@ -3,19 +3,22 @@
     <div class="card-body mt-2">
         <form action="" method="post">
             <label for="title"> Titulo: </label>
-            <input type="text" name="title" class="form-control">
+            <input type="text" name="title" class="form-control" required>
+
+            <label for="summary"> Resuma seu problema: </label>
+            <input type="text" class="form-control" name="summary" required>
 
             <label for="description"> Descrição: </label>
-            <input type="text" name="description" class="form-control"><br/>
+            <input type="text" name="description" class="form-control" required><br/>
 
             <label for="status"> Status: </label><br/>
-            <select name="status" class="form-control-sm text-center ">
+            <select name="status" class="form-control-sm text-center" required>
                 <option value="notResolved"> Não resolvido</option>
                 <option value="resolved"> Resolvido </option>
             </select><br/>
 
             <label for="category"> Categoria: </label><br/>
-            <select name="category" class="form-control-sm text-center ">
+            <select name="category" class="form-control-sm text-center" required>
                 {{#each categoryes}}
                 <option value="{{name}}"> {{name}} </option>
                 {{else}}
