@@ -1,0 +1,22 @@
+<div class="card mt-4">
+    <div class="card-body">
+        {{#each problem}}
+        <h3> {{this.title}}</h3>
+        <small> Descrição: {{problem.description}} </small>
+        <small> Status: {{ status }} </small>
+        <small> Publicado em: {{created_at}} </small>
+        {{else}}
+        <p> Problema não encontrado! </p>
+        {{/each}}
+
+        <h3> Soluções dos usuarios: </h3>
+        {{#each solutions}}
+            <p> Possível solução: {{solution}} </p>
+            <small> Usuario: {{user}} </small>
+            <small> Publicado em: {{created_at}} </small>
+        {{else}}
+            <p> Nenhuma solução até agora...</p>
+        {{/each}}
+
+    </div>
+</div>

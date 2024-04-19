@@ -5,7 +5,7 @@
 
             <h3 class="mb-5"> Todos problemas de: <strong>{{title}}</strong> </h3>
             <hr>
-            <form action="/problems/{{title}}/dateAddition" method="post">
+            <form action="/problems/filters/{{title}}/dateAddition" method="post">
                 <input type="hidden" name="category" value="{{title}}">
                 <select name="dateAddition" class="form-select">
                     <option value="-1"> Mais recentes </option>
