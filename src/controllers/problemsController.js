@@ -175,17 +175,31 @@ const getSearchProblems = async (req, res) => {
     try {
         const {keywords} = req.params
         const decodeKeywords = decodeURIComponent(keywords)
-        let problems = []
-        let splitKeywords = decodeKeywords.split(" ")
-
+        
+        let splitKeywords = await decodeKeywords.split(" ")
+        
         const promises = splitKeywords.map(async (keyword) => {
-            return await problemsModel.find({keywords: "pc"}).lean()
-            //PROBLEMA: O keywords está como String gigante
+            if(keyword){
+
+                const regex = new RegExp(`${keyword.replace(" ", "")}`, 'i')
+                //Aqui ele passa uma expressão regular
+                    //Assim consegue fazer não precisar ser exatamente igual
+                        //Assim precisando só de uma parte para mostrar o resto
+                            //i: Minusculas/Maiúsculas
+                            
+                return await problemsModel.find({
+                    $or: [
+                        {summary: regex},
+                        {description: regex},
+                        {title: regex}
+                    ]
+                }).lean()
+            }
+            
         })
-        
-        const allPromises = await Promise.all(promises)
-        console.log(allPromises)
-        
+            const allPromises = await Promise.all(promises)
+            console.log(allPromises)
+            res.render("./problemsWeb/searchedProblems", {allPromises: allPromises, search: decodeKeywords})
     }
     catch {
         req.flash("error", "Erro ao realizar a procura")

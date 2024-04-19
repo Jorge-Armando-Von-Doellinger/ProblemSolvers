@@ -35,9 +35,11 @@ app.set("views", `${__dirname}/views`)
 
 const mainPrincipalrouter = require("./routes/mainPrincipalRouter")
 const adminRouter = require("./routes/adminRouter")
+const userRouter = require("./routes/userRouter")
 
 app.use(mainPrincipalrouter)
 app.use("/admin", adminRouter)
+app.use("/user", userRouter)
 
 const PORT = process.env.SERVER_PORT
 app.listen(PORT)

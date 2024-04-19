@@ -1,0 +1,26 @@
+<div class="card">
+    <div class="card-body">
+        <div class="container">
+            <h3> Pesquisa por: <u> {{search}} </u> </h3>
+            <article>
+                <h4> Problemas mais recentes: </h4>
+                {{#each allPromises}}
+                {{#each this}}
+                    <div class="col-md-6 mt-4  border p-4 w-100">
+                        <form action="/problems/view/{{_id}}" method="get">
+                            <h3 class="text-center"> {{this.title}} </h3>
+                            <hr>
+                            <small> {{this.summary}}</small><br/>
+                            <small> {{ this.status }} </small><br/>
+                            <small> {{this.created_at}} </small><br/>
+                            <button type="submit" class="btn btn-success mt-2"> Observar problema </button>
+                        </form>
+                    </div>
+                    {{/each}}
+                    {{else}}
+                        <p> Nenhum problema registrado </p>
+                    {{/each}}
+            </article>
+        </div>
+    </div>
+</div>

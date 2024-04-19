@@ -20,9 +20,7 @@ router.post("/problems/post", middlewareCredentials.verifyCredentials, problemsC
 
 router.get("/problems/view/:id", problemsController.viewProblemById)
 
-router.get("/problems/addSolution/:id", (req, res) => {
-    res.render("./solutions/addSolution")
-})
+router.get("/problems/addSolution/:id", (req, res) => res.render("./solutions/addSolution"))
 
 router.post("/problems/addSolution/:id", solutionController.addSolution)
 

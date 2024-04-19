@@ -19,10 +19,6 @@ const problemsModel = new Schema({
         required: false,
         default: "resolvedFalse"
     },
-    keywords: {
-        type: String,
-        required: true
-    },
     category: {
         type: String,
         required: true

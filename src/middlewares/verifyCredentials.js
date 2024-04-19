@@ -1,20 +1,19 @@
 const { strictEqual } = require("assert")
 
 const verifyCredentials = (req, res, next) => {
-    const {title, summary, description, keywords, category} = req.body
+    const {title, summary, description, category} = req.body
 
     const titleTrimmedString = title.trim()
     const summaryTrimmedString = summary.trim()
     const descriptionTrimmedString = description.trim()
-    const keywordsTrimmedString = keywords.trim()
 
-    const stringNull = title == '' || description == '' || keywords == '' || title == ''
-    const stringSpace = titleTrimmedString.length == 0 || summaryTrimmedString.length == 0 || descriptionTrimmedString.length == 0 || keywordsTrimmedString.length == 0
+    const stringNull = title == '' || description == '' || title == ''
+    const stringSpace = titleTrimmedString.length == 0 || summaryTrimmedString.length == 0 || descriptionTrimmedString.length == 0
     
-    const StringUndefinedNull = !title || !description || !keywords || !category
+    const StringUndefinedNull = !title || !description || !category
     // const shortString = title.length < 4 || description.length < 10 || keywords.length < 5 || summary.length < 10
 
-    const stringTrimmedLenght = titleTrimmedString.length < 4 || summary.length < 10 || descriptionTrimmedString.length < 10 || keywordsTrimmedString.length < 10
+    const stringTrimmedLenght = titleTrimmedString.length < 4 || summary.length < 10 || descriptionTrimmedString.length < 10
 
     const veryLongText = summaryTrimmedString.length > 150 || titleTrimmedString.length > 50
 
