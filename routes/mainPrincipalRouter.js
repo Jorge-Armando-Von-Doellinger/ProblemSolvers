@@ -44,14 +44,47 @@ router.post("/problems/filter", (req, res) => {
     }
 })
 
-router.get("/problems/:filter", (req, res) => {
+router.get("/problems/:category", (req, res) => {
     try {
-        const {filter} = req.params
         
-        problemsModel.find({category: filter}).lean()
+        const {category} = req.params
+
+        problemsModel.find({category: category}).lean()
         .then((problemsFiltered) => {
             
-            res.render("./problemsWeb/index", {problemsFiltered: problemsFiltered, title: filter})
+            res.render("./problemsWeb/filteredProblems", {problemsFiltered: problemsFiltered, title: category})
+        })
+        .catch((err) => {
+            req.flash("error", "Erro ao procurar estes problemas")
+            res.redirect("/")
+        })
+    }
+    catch (err) {
+        req.flash("error", "Houve um erro interno ao procurar estes problemas")
+        res.redirect("/")
+    }
+
+})
+
+router.post("/problems/:category/dateAddition", (req, res) => {
+    try {
+        const {dateAddition, category} = req.body
+        res.redirect(`/problems/${category}/${dateAddition}`)
+    }
+    catch{
+        req.flash("error", "Houve um erro durante a filtragem dos problemas. Tente novamente!")
+        res.redirect("/")
+    }
+})
+
+router.get("/problems/:category/:dateAddition", (req, res) => {
+    try {
+        const {dateAddition, category} = req.params
+        console.log(category)
+        problemsModel.find({category: category}).lean().sort({created_at: parseInt(dateAddition)})
+        .then((problemsFiltered) => {
+            console.log(problemsFiltered)
+            res.render("./problemsWeb/filteredProblems", {problemsFiltered: problemsFiltered, title: category})
         })
         .catch((err) => {
             req.flash("error", "Erro ao procurar estes problemas")
