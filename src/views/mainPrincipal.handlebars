@@ -5,7 +5,7 @@
 
         <p class="text-center mb-5" style="color: cornflowerblue;"> Procure e/ou publique formas de resolver seu problema. Aqui nossa comunidade estará compartilhando ideias e possíveis soluções para te ajudar!</p>
     <hr>
-        <article class="mt-5">
+        <article class="mt-5 row">
             
             <form action="/problems/filters" method="post">
                 <select name="categoryes" class="form-select">
@@ -21,7 +21,7 @@
             
             <h4> Problemas mais recentes: </h4>
                 {{#each problems}}
-                    <div class="col-md-6 mt-4  border p-4 w-100">
+                    <div class="col-md-5 mt-4 mx-4  border p-4">
                         <form action="/problems/view/{{_id}}" method="get">
                             <h3 class="text-center"> {{ title }} </h3>
                             <hr>

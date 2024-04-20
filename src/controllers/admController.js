@@ -24,6 +24,12 @@ const getProblemsADM = (req, res) => {
     }
 }
 
+const getReports = (req, res) => {
+    const {author, accused, complaints, idReference} = req.params
+    
+}
+
 module.exports = {
-    getProblemsADM
+    getProblemsADM,
+    getReports
 }
