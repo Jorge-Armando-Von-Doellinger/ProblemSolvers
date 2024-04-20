@@ -2,6 +2,7 @@
 const categoryModel = require("../models/categoryModel")
 const problemsModel = require("../models/problemModel")
 const solutionModel = require("../models/solutionModel")
+const reportsModel = require("../models/reportsModel")
 
 const getProblems = (req, res) => {
     try {
@@ -49,11 +50,12 @@ const postNewProblem = async (req, res) => {
         const newProblem = new problemsModel({
             title: title,
             user: name,
-            idUser: _id,
+            authorID: _id,
             description: description,
             summary: summary,
             keywords: keywords,
             category: category
+            
         })
         newProblem.save()
         .then(() => {
@@ -212,32 +214,47 @@ const getSearchProblems = async (req, res) => {
     }
 }
 
-const reportPost = (req, res) => {
+const reportPost = async (req, res) => {
     try{
-        const {id} = req.params
-        problemsModel.findById(id)
-        .then((problem) => {
-            const reportsPast = problem.reports
-            const reportsNow = (reportsPast + 1)
-            problem.reports = reportsNow
-            // console.log(reportPost)
-            problem.save()
-            .then((success) => {
-                req.flash("success", "Obrigado pela sua denuncia. Iremos analisar este post e, dependendo da gravidade, bloquear o usuário!")
-                res.redirect("/")
+        const {idProblem, accuser, accused} = req.body
+            await reportsModel.findOne({idReference: idProblem})
+            .then(async (report) => {
                 
+                    report.complaints += 1
+                    report.accuser.push(accuser)
+                    await report.save()
+                    .then((success) => {
+                        req.flash("success", "Obrigado pela sua denuncia. Iremos analisar este post e, dependendo da gravidade, bloquear o usuário!")
+                        res.redirect("/")
+                        
+                    })
+                    .catch((err) => {
+                        req.flash("error", "Houve um erro ao salvar seu report. Por favor, tente novamente!")
+                        res.redirect("/")
+                    })
             })
-            .catch((err) => {
-                req.flash("error", "Houve um erro ao salvar seu report. Por favor, tente novamente!")
-                res.redirect("/")
+            .catch(async(err) => {
+                if(!err) return
+                const newReport = new reportsModel({
+                    complaints: 1,
+                    accused: accused,
+                    idReference: idProblem
+                })
+                newReport.accuser.push(accuser)
+                await newReport.save()
+                .then((success) => {
+                    req.flash("success", "Obrigado pela sua denuncia. Iremos analisar este post e, dependendo da gravidade, bloquear o usuário!")
+                    res.redirect("/")
+                    
+                })
+                .catch((err) => {
+                    req.flash("error", "Houve um erro ao salvar seu report. Por favor, tente novamente!")
+                    res.redirect("/")
+                })
             })
-        })
-        .catch((err) => {
-            req.flash("error", "Problema não encontrado!")
-            res.redirect("/")
-        })
     }
-    catch {
+    catch (err){
+        console.log(err)
         req.flash("error", "Houve um erro ao realizar seu report. Por favor, tente novamente e, se preciso, reclame na area Fale Conosco")
         res.redirect("/")
     }

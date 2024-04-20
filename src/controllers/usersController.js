@@ -46,9 +46,20 @@ const authenticateUser = (req, res, next) => {
     
 }
 
+const getLogOut = (req, res, next) => {
+    req.logOut(function(err){
+        if(err){
+            return next(err)
+        } else {
+            req.flash("success", "Deslogado com successo!")
+            res.redirect("/")
+        }
+    })
+}
 
 
 module.exports = {
     registerUser,
-    authenticateUser
+    authenticateUser,
+    getLogOut
 }

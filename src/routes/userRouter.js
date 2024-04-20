@@ -13,7 +13,7 @@ router.get("/login", (req, res) => res.render("./users/login"))
 
 router.post("/login", userController.authenticateUser)
 
-
+router.get("/logout", userController.getLogOut)
 
 // router.post("/register/a", async (req, res) => {
 //     const transport = await nodemailer.createTransport({

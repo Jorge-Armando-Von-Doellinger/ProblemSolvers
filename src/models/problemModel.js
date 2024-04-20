@@ -6,6 +6,10 @@ const problemsModel = new Schema({
         type: String,
         required: true
     },
+    authorID: {
+        type: String,
+        required: true
+    },
     title: {
         type: String,
         required: true
@@ -28,11 +32,6 @@ const problemsModel = new Schema({
         required: true
     },
     likes: {
-        type: Number,
-        required: false,
-        default: 0
-    },
-    reports: {
         type: Number,
         required: false,
         default: 0

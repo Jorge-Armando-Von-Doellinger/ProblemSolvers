@@ -1,35 +1,76 @@
 const categoryModel = require("../models/categoryModel")
 const problemsModel = require("../models/problemModel")
 const solutionModel = require("../models/solutionModel")
+const reportsModel = require("../models/reportsModel")
+const userModel = require("../models/userModel")
 
-const getProblemsADM = (req, res) => {
-    try {
-        problemsModel.find().lean().sort({created_at: -1}).then((problems) => {
-            categoryModel.find().lean().then((categoryes) => {
-                res.render("./mainPrincipal", {problems: problems, categoryes: categoryes})
-            })
-            .catch((err) => {
-                req.flash("error", 'Houve um erro ao carregar as categorias!')
-                res.redirect("/")
-            })
-        })
-        .catch((err) => {
-            req.flash("error", "Houve um erro interno ao procurar as categorias")
-            // res.render("/")
-        })
+const getReports = async(req, res) => {
+    try{
+        const reports = await reportsModel.find().lean()
+        const problems = await problemsModel.find().lean()
+        res.render("./admin/index", {reports: reports, problems:problems})
     }
-    catch (err) {
-        req.flash("error", "Houve um erro ao procurar as categorias. Por favor, tente novamente!")
-        // res.redirect("/")
+    catch {
+        req.flash("error", "Houve um erro ao carregar a página")
+        res.redirect("/")
     }
 }
 
-const getReports = (req, res) => {
-    const {author, accused, complaints, idReference} = req.params
-    
+const blockUser = async (req, res, next) => {
+    try {
+        const {idReference} = req.body
+        const findUser = await problemsModel.findById(idReference).lean()
+        const userAuthorID = findUser.authorID
+
+        userModel.findById(userAuthorID).then(async(user) => {
+            user.blocked = true
+
+            await user.save()
+        })
+        .then(() => {
+            req.customData = {id:userAuthorID, block: true}
+            next()
+
+        })
+        .catch((err) => {
+            req.flash("error", "Houve um erro ao encontrar o usuario. Por favor, tente novamente ou reclame com os desenvolvedores!")
+            res.redirect("/admin")
+        })
+    }
+    catch{
+        req.flash("error", "Houve um erro interno ao realizar o bloqueio do usuario. Tente novamente!")
+        res.redirect("/admin")
+    }
+}
+
+const unblockUser = async (req, res) => {
+    try {
+        const {idReference} = req.body
+        const findUser = await problemsModel.findById(idReference).lean()
+        const userAuthorID = findUser.authorID
+
+        userModel.findById(userAuthorID).then(async(user) => {
+            user.blocked = false
+
+            await user.save()
+        })
+        .then(() => {
+            req.flash("success", "Desbloqueado com sucesso!")
+            res.redirect("/admin")
+        })
+        .catch((err) => {
+            req.flash("error", "Houve um erro ao encontrar o usuario. Por favor, tente novamente ou reclame com os desenvolvedores!")
+            res.redirect("/admin")
+        })
+    }
+    catch{
+        req.flash("error", "Houve um erro interno ao realizar o desbloqueio do usuario. Tente novamente!")
+        res.redirect("/admin")
+    }
 }
 
 module.exports = {
-    getProblemsADM,
-    getReports
+    getReports,
+    blockUser,
+    unblockUser
 }

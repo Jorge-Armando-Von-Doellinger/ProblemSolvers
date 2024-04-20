@@ -48,8 +48,6 @@ const userRouter = require("./routes/userRouter")
 app.use(mainPrincipalrouter)
 app.use("/admin", adminRouter)
 app.use("/user", userRouter)
-app.get("/a", (req, res) => {
-    console.log(req.flash())
-})
+
 const PORT = process.env.SERVER_PORT
 app.listen(PORT)

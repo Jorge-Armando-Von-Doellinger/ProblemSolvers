@@ -47,6 +47,6 @@ router.get("/problems/search/view/:keywords", problemsController.getSearchProble
 
 //Reports
 
-router.post("/problems/report/post/:id", problemsController.reportPost)
+router.post("/problems/report/post", problemsController.reportPost)
 
 module.exports = router

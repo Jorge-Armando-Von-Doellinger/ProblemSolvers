@@ -22,7 +22,7 @@
             <h4> Problemas mais recentes: </h4>
                 {{#each problems}}
                     <div class="col-md-5 mt-4 border p-5 mx-auto">
-                        <form action="/problems/view/{{_id}}" method="get">
+                        <form action="/problems/view/{{this._id}}" method="get">
                             <h3 class="text-center"> {{ title }} </h3>
                             <hr>
                             <small> Usuario: {{user}} </small><br/>
@@ -37,7 +37,11 @@
                             &#8285;
                         </button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <form action="/problems/report/post/{{_id}}" method="post">
+                            <form action="/problems/report/post/" method="post">
+                                <input type="hidden" name="accuser" value="{{../user.name}}">
+                                <input type="hidden" name="accused" value="{{this.user}}">
+                                <input type="hidden" name="idProblem" value="{{this._id}}">
+                                <input type="hidden" name="created_at" value="{{this.created_at}}">
                             <button class="dropdown-item" href="#"> Denunciar </button>
                             
                             </form>

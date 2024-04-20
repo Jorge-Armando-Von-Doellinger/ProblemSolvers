@@ -7,8 +7,8 @@ const reportModel = new Schema({
         required: false,
         default: 0
     },
-    author: {
-        type: String,
+    accuser: {
+        type: [String],
         required: true
     },
     accused: {
@@ -25,3 +25,5 @@ const reportModel = new Schema({
         default: Date.now()
     }
 })
+
+module.exports = mongoose.model("reportsModel", reportModel)
