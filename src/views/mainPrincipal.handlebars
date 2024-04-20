@@ -30,6 +30,18 @@
                             <small> {{created_at}} </small><br/>
                             <button type="submit" class="btn btn-success mt-2"> Observar problema </button>
                         </form>
+
+                        <div class="dropdown position-absolute end-0 top-0 mt-2 mx-2">
+                        <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            &#8285;
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="#"> Denunciar </a>
+                            <a class="dropdown-item" href="#"> Dar like </a>
+                            <a class="dropdown-item" href="#"> Favoritar </a>
+                        </div>
+                        </div>
+
                     </div>
 
                     {{else}}

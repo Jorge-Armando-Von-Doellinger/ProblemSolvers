@@ -1,4 +1,4 @@
-const { urlencoded } = require("body-parser")
+
 const categoryModel = require("../models/categoryModel")
 const problemsModel = require("../models/problemModel")
 const solutionModel = require("../models/solutionModel")
@@ -197,9 +197,13 @@ const getSearchProblems = async (req, res) => {
             }
             
         })
-            const allPromises = await Promise.all(promises)
-            console.log(allPromises)
-            res.render("./problemsWeb/searchedProblems", {allPromises: allPromises, search: decodeKeywords})
+            Promise.all(promises).then((promises) => {
+                console.log(promises)
+                res.render("./problemsWeb/searchedProblems", {allPromises: promises, search: decodeKeywords})
+            }).catch((err) => {
+                req.flash("error", "Erro ao enviar promises")
+                res.redirect("/")
+            })
     }
     catch {
         req.flash("error", "Erro ao realizar a procura")
