@@ -44,11 +44,12 @@ const getNewProblem = (req, res) => {
 
 const postNewProblem = async (req, res) => {
     try {
-        const {user, title, summary, description, keywords, category} = req.body
-        const {name} = req.user
+        const {title, summary, description, keywords, category} = req.body
+        const {name, _id} = req.user
         const newProblem = new problemsModel({
             title: title,
             user: name,
+            idUser: _id,
             description: description,
             summary: summary,
             keywords: keywords,
@@ -56,7 +57,6 @@ const postNewProblem = async (req, res) => {
         })
         newProblem.save()
         .then(() => {
-            console.log(req.user)
             req.flash("success", "Problema registrado com sucesso")
             res.redirect("/")
         })
@@ -212,6 +212,38 @@ const getSearchProblems = async (req, res) => {
     }
 }
 
+const reportPost = (req, res) => {
+    try{
+        const {id} = req.params
+        problemsModel.findById(id)
+        .then((problem) => {
+            const reportsPast = problem.reports
+            const reportsNow = (reportsPast + 1)
+            problem.reports = reportsNow
+            // console.log(reportPost)
+            problem.save()
+            .then((success) => {
+                req.flash("success", "Obrigado pela sua denuncia. Iremos analisar este post e, dependendo da gravidade, bloquear o usuário!")
+                res.redirect("/")
+                
+            })
+            .catch((err) => {
+                req.flash("error", "Houve um erro ao salvar seu report. Por favor, tente novamente!")
+                res.redirect("/")
+            })
+        })
+        .catch((err) => {
+            req.flash("error", "Problema não encontrado!")
+            res.redirect("/")
+        })
+    }
+    catch {
+        req.flash("error", "Houve um erro ao realizar seu report. Por favor, tente novamente e, se preciso, reclame na area Fale Conosco")
+        res.redirect("/")
+    }
+
+}
+
 module.exports = {
     getProblems,
     postNewProblem,
@@ -222,5 +254,6 @@ module.exports = {
     viewProblemById,
     getNewProblem,
     searchProblems,
-    getSearchProblems
+    getSearchProblems,
+    reportPost,
 }

@@ -45,4 +45,8 @@ router.post("/problems/search/keywords", problemsController.searchProblems)
 
 router.get("/problems/search/view/:keywords", problemsController.getSearchProblems)
 
+//Reports
+
+router.post("/problems/report/post/:id", problemsController.reportPost)
+
 module.exports = router

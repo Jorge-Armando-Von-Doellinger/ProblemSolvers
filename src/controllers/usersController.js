@@ -1,6 +1,8 @@
 const userModel = require("../models/userModel")
+const problemsModel = require("../models/problemModel")
 const bcryptjs = require("bcryptjs")
 const passport = require("passport")
+
 const registerUser = async (req, res) => {
     try{
         const {name, email, password} = req.body
@@ -10,7 +12,7 @@ const registerUser = async (req, res) => {
             name: name,
             email: email,
             password: passHashed,
-            adminLevel: 10
+            // adminLevel: 10
             
         })
 
@@ -43,6 +45,8 @@ const authenticateUser = (req, res, next) => {
     })(req, res,next)
     
 }
+
+
 
 module.exports = {
     registerUser,
