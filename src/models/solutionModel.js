@@ -14,6 +14,16 @@ const solutionModel = new Schema({
         type: String,
         required: true
     },
+    likes: {
+        type: Number,
+        required: false,
+        default: 0
+    },
+    reports: {
+        type: Number,
+        required: false,
+        default: 0
+    },
     created_at: {
         type: Date,
         required: false,

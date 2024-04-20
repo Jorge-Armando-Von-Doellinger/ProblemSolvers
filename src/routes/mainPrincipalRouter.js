@@ -12,7 +12,7 @@ const solutionModel = require("../models/solutionModel")
 
 //Problems
 
-router.get("/", problemsController.getProblems)
+router.get("/",problemsController.getProblems)
 
 router.get("/problems/post", problemsController.getNewProblem)
 

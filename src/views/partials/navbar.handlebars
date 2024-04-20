@@ -31,18 +31,20 @@
         {{#if user}}
         {{else}}
         <li class="nav">
-        <a class="nav-link" href="/accounts/register">Criar conta</a>
+        <a class="nav-link" href="/user/register">Criar conta</a>
         </li>
         <li class="nav">
-        <a class="nav-link" href="/accounts/enter">Entrar</a>
+        <a class="nav-link" href="/user/login">Entrar</a>
         </li>
         {{/if}}
-        {{#if admin}}
-        {{else}}
+        
+            {{#if user.adminLevel}}
             <li class="nav">
             <a class="nav-link" href="/admin"> Area do admin </a>
             </li>
-        {{/if}}
+            {{/if}}
+            
+
 
     </ul>
     <form class="d-flex" role="search" action="/problems/search/keywords" method="post">

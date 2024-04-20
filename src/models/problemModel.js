@@ -1,4 +1,5 @@
 const mongoose = require("mongoose")
+const { type } = require("os")
 const Schema = mongoose.Schema
 
 const problemsModel = new Schema({
@@ -22,6 +23,16 @@ const problemsModel = new Schema({
     category: {
         type: String,
         required: true
+    },
+    likes: {
+        type: Number,
+        required: false,
+        default: 0
+    },
+    reports: {
+        type: Number,
+        required: false,
+        default: 0
     },
     created_at: {
         type: Date,
