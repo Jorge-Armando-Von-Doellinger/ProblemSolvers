@@ -2,6 +2,7 @@ const express = require("express")
 const router = express.Router()
 
 const middlewareCredentials = require("../middlewares/verifyCredentials")
+const middlewareLogged = require("../middlewares/verifyPost")
 
 const problemsController = require("../controllers/problemsController")
 const solutionController = require("../controllers/solutionController")
@@ -16,13 +17,13 @@ router.get("/",problemsController.getProblems)
 
 router.get("/problems/post", problemsController.getNewProblem)
 
-router.post("/problems/post", middlewareCredentials.verifyCredentials, problemsController.postNewProblem)
+router.post("/problems/post", middlewareLogged, middlewareCredentials.verifyCredentials, problemsController.postNewProblem)
 
 router.get("/problems/view/:id", problemsController.viewProblemById)
 
 router.get("/problems/addSolution/:id", (req, res) => res.render("./solutions/addSolution"))
 
-router.post("/problems/addSolution/:id", solutionController.addSolution)
+router.post("/problems/addSolution/:id", middlewareLogged ,solutionController.addSolution)
 
 
 

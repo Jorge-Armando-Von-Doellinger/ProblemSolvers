@@ -18,6 +18,11 @@ const userModel = new Schema({
         type: Number,
         required: false,
         default: 0
+    },
+    blocked: {
+        type: Boolean,
+        required: false,
+        default: false
     }
 })
 module.exports = mongoose.model("userModel", userModel)

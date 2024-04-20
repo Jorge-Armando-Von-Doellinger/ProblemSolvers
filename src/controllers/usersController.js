@@ -9,7 +9,8 @@ const registerUser = async (req, res) => {
         const newUser = new userModel({
             name: name,
             email: email,
-            password: passHashed
+            password: passHashed,
+            adminLevel: 10
             
         })
 

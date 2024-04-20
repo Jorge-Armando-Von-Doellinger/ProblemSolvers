@@ -44,10 +44,11 @@ const getNewProblem = (req, res) => {
 
 const postNewProblem = async (req, res) => {
     try {
-        const {title, summary, description, keywords, category} = req.body
-
+        const {user, title, summary, description, keywords, category} = req.body
+        const {name} = req.user
         const newProblem = new problemsModel({
             title: title,
+            user: name,
             description: description,
             summary: summary,
             keywords: keywords,
@@ -55,7 +56,7 @@ const postNewProblem = async (req, res) => {
         })
         newProblem.save()
         .then(() => {
-            
+            console.log(req.user)
             req.flash("success", "Problema registrado com sucesso")
             res.redirect("/")
         })
