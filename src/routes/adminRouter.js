@@ -19,7 +19,15 @@ router.post("/categoryes/new", categoriesController.newCategory)
 
 router.post("/user/block", admController.blockUser, checkBloques.deleteAllOfBlockeds)
 
-router.post("/user/unblock", admController.unblockUser)
+//Filters
+router.post("/filter", (req, res) => {
+    const {filter} = req.body
+    res.redirect(`/admin/filter/${filter}`)
+})
+
+router.get("/filter/:ordem", admController.getReportsOrdem)
+
+// router.post("/user/unblock", admController.unblockUser)
 
 
 

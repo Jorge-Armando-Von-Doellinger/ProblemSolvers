@@ -39,5 +39,9 @@ router.get("/logout", userController.getLogOut)
 //         })
 // })
 
+router.get("/perfil", (req, res) => {
+    
+    res.render("./users/perfil", {user: req.user})
+})
 
 module.exports = router

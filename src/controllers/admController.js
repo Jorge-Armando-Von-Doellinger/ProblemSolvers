@@ -43,34 +43,42 @@ const blockUser = async (req, res, next) => {
     }
 }
 
-const unblockUser = async (req, res) => {
-    try {
-        const {idReference} = req.body
-        const findUser = await problemsModel.findById(idReference).lean()
-        const userAuthorID = findUser.authorID
-
-        userModel.findById(userAuthorID).then(async(user) => {
-            user.blocked = false
-
-            await user.save()
-        })
-        .then(() => {
-            req.flash("success", "Desbloqueado com sucesso!")
-            res.redirect("/admin")
-        })
-        .catch((err) => {
-            req.flash("error", "Houve um erro ao encontrar o usuario. Por favor, tente novamente ou reclame com os desenvolvedores!")
-            res.redirect("/admin")
-        })
-    }
-    catch{
-        req.flash("error", "Houve um erro interno ao realizar o desbloqueio do usuario. Tente novamente!")
-        res.redirect("/admin")
-    }
+const getReportsOrdem = async (req, res) => {
+    const {ordem} = req.params
+    const ordemNumber = Number(ordem)
+    const reportsOredenado = await reportsModel.find().lean().sort({created_at: ordemNumber})
+    res.render("./admin/filtersReports", {reports: reportsOredenado})
 }
+
+// const unblockUser = async (req, res) => {
+//     try {
+//         const {idReference} = req.body
+//         const findUser = await problemsModel.findById(idReference).lean()
+//         const userAuthorID = findUser.authorID
+
+//         userModel.find().then(async(user) => {
+//             user.blocked = false
+
+//             await user.save()
+//         })
+//         .then(() => {
+//             req.flash("success", "Desbloqueado com sucesso!")
+//             res.redirect("/admin")
+//         })
+//         .catch((err) => {
+//             req.flash("error", "Houve um erro ao encontrar o usuario. Por favor, tente novamente ou reclame com os desenvolvedores!")
+//             res.redirect("/admin")
+//         })
+//     }
+//     catch{
+//         req.flash("error", "Houve um erro interno ao realizar o desbloqueio do usuario. Tente novamente!")
+//         res.redirect("/admin")
+//     }
+// }
 
 module.exports = {
     getReports,
     blockUser,
-    unblockUser
+    getReportsOrdem
+    // unblockUser
 }
